@@ -1,12 +1,12 @@
-FROM debian:jessie
+FROM debian:bullseye
 MAINTAINER victor@vrdominguez.es
 
 EXPOSE 80
 
 # Install apache
 RUN apt-get update && apt-get dist-upgrade -y \
-		&& apt-get install -y --no-install-recommends ca-certificates apache2 php5 \
-		libapache2-mod-php5 php5-mongo php5-gd php5-mysqlnd php-xml-dtd php-pear php-soap php5-ldap \
+		&& apt-get install -y --no-install-recommends ca-certificates apache2 php libapache2-mod-php php-mongodb \
+		                                              php-gd php-mysql php-xml php-pear php-soap php-ldap \
 		&& apt-get clean \
 		&& a2enmod rewrite \
 		&& sed -i -e 's:${APACHE_LOG_DIR}/access.log:/dev/stdout:' -e 's:${APACHE_LOG_DIR}/error.log:/dev/stderr:' /etc/apache2/sites-available/*
